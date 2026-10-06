@@ -1,0 +1,704 @@
+{
+  "version": "3.0.0",
+  "darkMode": true,
+  "gridEnabling": false,
+  "currentViewName": null,
+  "defaultView": {
+    "detailLevel": "All",
+    "relationshipMode": "All",
+    "tablePositions": [
+      {
+        "name": "coba",
+        "schemaName": "public",
+        "x": 12,
+        "y": 12
+      },
+      {
+        "name": "coba2",
+        "schemaName": "public",
+        "x": 210.51318359375,
+        "y": 12
+      },
+      {
+        "name": "users",
+        "schemaName": "public",
+        "x": 0,
+        "y": 50
+      },
+      {
+        "name": "pegawai",
+        "schemaName": "public",
+        "x": 303.18701171875,
+        "y": 50
+      },
+      {
+        "name": "pelanggan",
+        "schemaName": "public",
+        "x": 603.5048828125,
+        "y": 50
+      },
+      {
+        "name": "kategori",
+        "schemaName": "public",
+        "x": 915.77216796875,
+        "y": 50
+      },
+      {
+        "name": "satuan",
+        "schemaName": "public",
+        "x": 1248.35517578125,
+        "y": 50
+      },
+      {
+        "name": "supplier",
+        "schemaName": "public",
+        "x": 0,
+        "y": 292
+      },
+      {
+        "name": "produk",
+        "schemaName": "public",
+        "x": 303.18701171875,
+        "y": 388
+      },
+      {
+        "name": "stok",
+        "schemaName": "public",
+        "x": 603.5048828125,
+        "y": 388
+      },
+      {
+        "name": "pembelian",
+        "schemaName": "public",
+        "x": 915.77216796875,
+        "y": 260
+      },
+      {
+        "name": "detail_pembelian",
+        "schemaName": "public",
+        "x": 1248.35517578125,
+        "y": 228
+      },
+      {
+        "name": "penjualan",
+        "schemaName": "public",
+        "x": 0,
+        "y": 630
+      },
+      {
+        "name": "detail_penjualan",
+        "schemaName": "public",
+        "x": 303.18701171875,
+        "y": 982
+      },
+      {
+        "name": "pembayaran",
+        "schemaName": "public",
+        "x": 603.5048828125,
+        "y": 726
+      },
+      {
+        "name": "promo",
+        "schemaName": "public",
+        "x": 915.77216796875,
+        "y": 662
+      },
+      {
+        "name": "promo_produk",
+        "schemaName": "public",
+        "x": 1248.35517578125,
+        "y": 502
+      },
+      {
+        "name": "retur_penjualan",
+        "schemaName": "public",
+        "x": 0,
+        "y": 1064
+      },
+      {
+        "name": "detail_retur_penjualan",
+        "schemaName": "public",
+        "x": 303.18701171875,
+        "y": 1288
+      },
+      {
+        "name": "retur_pembelian",
+        "schemaName": "public",
+        "x": 603.5048828125,
+        "y": 1032
+      },
+      {
+        "name": "detail_retur_pembelian",
+        "schemaName": "public",
+        "x": 915.77216796875,
+        "y": 1032
+      },
+      {
+        "name": "shift_kasir",
+        "schemaName": "public",
+        "x": 1248.35517578125,
+        "y": 680
+      },
+      {
+        "name": "kas",
+        "schemaName": "public",
+        "x": 0,
+        "y": 1370
+      },
+      {
+        "name": "supplier_produk",
+        "schemaName": "public",
+        "x": 303.18701171875,
+        "y": 1562
+      },
+      {
+        "name": "log_stok",
+        "schemaName": "public",
+        "x": 603.5048828125,
+        "y": 1370
+      },
+      {
+        "name": "member",
+        "schemaName": "public",
+        "x": 915.77216796875,
+        "y": 1306
+      },
+      {
+        "name": "transaksi_poin",
+        "schemaName": "public",
+        "x": 1248.35517578125,
+        "y": 1050
+      }
+    ],
+    "tableGroupCollapseStates": [],
+    "stickyNoteLayouts": [],
+    "referencePaths": [
+      {
+        "firstFieldNames": [
+          "nama_id"
+        ],
+        "firstTableName": "coba2",
+        "firstSchemaName": "public",
+        "firstRelation": "*",
+        "secondFieldNames": [
+          "sandi"
+        ],
+        "secondTableName": "coba",
+        "secondSchemaName": "public",
+        "secondRelation": "1",
+        "checkPoints": []
+      },
+      {
+        "firstFieldNames": [
+          "user_id"
+        ],
+        "firstTableName": "pegawai",
+        "firstSchemaName": "public",
+        "firstRelation": "*",
+        "secondFieldNames": [
+          "id"
+        ],
+        "secondTableName": "users",
+        "secondSchemaName": "public",
+        "secondRelation": "1",
+        "checkPoints": []
+      },
+      {
+        "firstFieldNames": [
+          "kategori_id"
+        ],
+        "firstTableName": "produk",
+        "firstSchemaName": "public",
+        "firstRelation": "*",
+        "secondFieldNames": [
+          "id"
+        ],
+        "secondTableName": "kategori",
+        "secondSchemaName": "public",
+        "secondRelation": "1",
+        "checkPoints": []
+      },
+      {
+        "firstFieldNames": [
+          "satuan_id"
+        ],
+        "firstTableName": "produk",
+        "firstSchemaName": "public",
+        "firstRelation": "*",
+        "secondFieldNames": [
+          "id"
+        ],
+        "secondTableName": "satuan",
+        "secondSchemaName": "public",
+        "secondRelation": "1",
+        "checkPoints": []
+      },
+      {
+        "firstFieldNames": [
+          "supplier_id"
+        ],
+        "firstTableName": "produk",
+        "firstSchemaName": "public",
+        "firstRelation": "*",
+        "secondFieldNames": [
+          "id"
+        ],
+        "secondTableName": "supplier",
+        "secondSchemaName": "public",
+        "secondRelation": "1",
+        "checkPoints": []
+      },
+      {
+        "firstFieldNames": [
+          "produk_id"
+        ],
+        "firstTableName": "stok",
+        "firstSchemaName": "public",
+        "firstRelation": "1",
+        "secondFieldNames": [
+          "id"
+        ],
+        "secondTableName": "produk",
+        "secondSchemaName": "public",
+        "secondRelation": "1",
+        "checkPoints": []
+      },
+      {
+        "firstFieldNames": [
+          "supplier_id"
+        ],
+        "firstTableName": "pembelian",
+        "firstSchemaName": "public",
+        "firstRelation": "*",
+        "secondFieldNames": [
+          "id"
+        ],
+        "secondTableName": "supplier",
+        "secondSchemaName": "public",
+        "secondRelation": "1",
+        "checkPoints": []
+      },
+      {
+        "firstFieldNames": [
+          "pegawai_id"
+        ],
+        "firstTableName": "pembelian",
+        "firstSchemaName": "public",
+        "firstRelation": "*",
+        "secondFieldNames": [
+          "id"
+        ],
+        "secondTableName": "pegawai",
+        "secondSchemaName": "public",
+        "secondRelation": "1",
+        "checkPoints": []
+      },
+      {
+        "firstFieldNames": [
+          "pembelian_id"
+        ],
+        "firstTableName": "detail_pembelian",
+        "firstSchemaName": "public",
+        "firstRelation": "*",
+        "secondFieldNames": [
+          "id"
+        ],
+        "secondTableName": "pembelian",
+        "secondSchemaName": "public",
+        "secondRelation": "1",
+        "checkPoints": []
+      },
+      {
+        "firstFieldNames": [
+          "produk_id"
+        ],
+        "firstTableName": "detail_pembelian",
+        "firstSchemaName": "public",
+        "firstRelation": "*",
+        "secondFieldNames": [
+          "id"
+        ],
+        "secondTableName": "produk",
+        "secondSchemaName": "public",
+        "secondRelation": "1",
+        "checkPoints": []
+      },
+      {
+        "firstFieldNames": [
+          "pelanggan_id"
+        ],
+        "firstTableName": "penjualan",
+        "firstSchemaName": "public",
+        "firstRelation": "*",
+        "secondFieldNames": [
+          "id"
+        ],
+        "secondTableName": "pelanggan",
+        "secondSchemaName": "public",
+        "secondRelation": "1",
+        "checkPoints": []
+      },
+      {
+        "firstFieldNames": [
+          "pegawai_id"
+        ],
+        "firstTableName": "penjualan",
+        "firstSchemaName": "public",
+        "firstRelation": "*",
+        "secondFieldNames": [
+          "id"
+        ],
+        "secondTableName": "pegawai",
+        "secondSchemaName": "public",
+        "secondRelation": "1",
+        "checkPoints": []
+      },
+      {
+        "firstFieldNames": [
+          "penjualan_id"
+        ],
+        "firstTableName": "detail_penjualan",
+        "firstSchemaName": "public",
+        "firstRelation": "*",
+        "secondFieldNames": [
+          "id"
+        ],
+        "secondTableName": "penjualan",
+        "secondSchemaName": "public",
+        "secondRelation": "1",
+        "checkPoints": []
+      },
+      {
+        "firstFieldNames": [
+          "produk_id"
+        ],
+        "firstTableName": "detail_penjualan",
+        "firstSchemaName": "public",
+        "firstRelation": "*",
+        "secondFieldNames": [
+          "id"
+        ],
+        "secondTableName": "produk",
+        "secondSchemaName": "public",
+        "secondRelation": "1",
+        "checkPoints": []
+      },
+      {
+        "firstFieldNames": [
+          "penjualan_id"
+        ],
+        "firstTableName": "pembayaran",
+        "firstSchemaName": "public",
+        "firstRelation": "*",
+        "secondFieldNames": [
+          "id"
+        ],
+        "secondTableName": "penjualan",
+        "secondSchemaName": "public",
+        "secondRelation": "1",
+        "checkPoints": []
+      },
+      {
+        "firstFieldNames": [
+          "promo_id"
+        ],
+        "firstTableName": "promo_produk",
+        "firstSchemaName": "public",
+        "firstRelation": "*",
+        "secondFieldNames": [
+          "id"
+        ],
+        "secondTableName": "promo",
+        "secondSchemaName": "public",
+        "secondRelation": "1",
+        "checkPoints": []
+      },
+      {
+        "firstFieldNames": [
+          "produk_id"
+        ],
+        "firstTableName": "promo_produk",
+        "firstSchemaName": "public",
+        "firstRelation": "*",
+        "secondFieldNames": [
+          "id"
+        ],
+        "secondTableName": "produk",
+        "secondSchemaName": "public",
+        "secondRelation": "1",
+        "checkPoints": []
+      },
+      {
+        "firstFieldNames": [
+          "penjualan_id"
+        ],
+        "firstTableName": "retur_penjualan",
+        "firstSchemaName": "public",
+        "firstRelation": "*",
+        "secondFieldNames": [
+          "id"
+        ],
+        "secondTableName": "penjualan",
+        "secondSchemaName": "public",
+        "secondRelation": "1",
+        "checkPoints": []
+      },
+      {
+        "firstFieldNames": [
+          "pegawai_id"
+        ],
+        "firstTableName": "retur_penjualan",
+        "firstSchemaName": "public",
+        "firstRelation": "*",
+        "secondFieldNames": [
+          "id"
+        ],
+        "secondTableName": "pegawai",
+        "secondSchemaName": "public",
+        "secondRelation": "1",
+        "checkPoints": []
+      },
+      {
+        "firstFieldNames": [
+          "retur_id"
+        ],
+        "firstTableName": "detail_retur_penjualan",
+        "firstSchemaName": "public",
+        "firstRelation": "*",
+        "secondFieldNames": [
+          "id"
+        ],
+        "secondTableName": "retur_penjualan",
+        "secondSchemaName": "public",
+        "secondRelation": "1",
+        "checkPoints": []
+      },
+      {
+        "firstFieldNames": [
+          "produk_id"
+        ],
+        "firstTableName": "detail_retur_penjualan",
+        "firstSchemaName": "public",
+        "firstRelation": "*",
+        "secondFieldNames": [
+          "id"
+        ],
+        "secondTableName": "produk",
+        "secondSchemaName": "public",
+        "secondRelation": "1",
+        "checkPoints": []
+      },
+      {
+        "firstFieldNames": [
+          "pembelian_id"
+        ],
+        "firstTableName": "retur_pembelian",
+        "firstSchemaName": "public",
+        "firstRelation": "*",
+        "secondFieldNames": [
+          "id"
+        ],
+        "secondTableName": "pembelian",
+        "secondSchemaName": "public",
+        "secondRelation": "1",
+        "checkPoints": []
+      },
+      {
+        "firstFieldNames": [
+          "supplier_id"
+        ],
+        "firstTableName": "retur_pembelian",
+        "firstSchemaName": "public",
+        "firstRelation": "*",
+        "secondFieldNames": [
+          "id"
+        ],
+        "secondTableName": "supplier",
+        "secondSchemaName": "public",
+        "secondRelation": "1",
+        "checkPoints": []
+      },
+      {
+        "firstFieldNames": [
+          "pegawai_id"
+        ],
+        "firstTableName": "retur_pembelian",
+        "firstSchemaName": "public",
+        "firstRelation": "*",
+        "secondFieldNames": [
+          "id"
+        ],
+        "secondTableName": "pegawai",
+        "secondSchemaName": "public",
+        "secondRelation": "1",
+        "checkPoints": []
+      },
+      {
+        "firstFieldNames": [
+          "retur_id"
+        ],
+        "firstTableName": "detail_retur_pembelian",
+        "firstSchemaName": "public",
+        "firstRelation": "*",
+        "secondFieldNames": [
+          "id"
+        ],
+        "secondTableName": "retur_pembelian",
+        "secondSchemaName": "public",
+        "secondRelation": "1",
+        "checkPoints": []
+      },
+      {
+        "firstFieldNames": [
+          "produk_id"
+        ],
+        "firstTableName": "detail_retur_pembelian",
+        "firstSchemaName": "public",
+        "firstRelation": "*",
+        "secondFieldNames": [
+          "id"
+        ],
+        "secondTableName": "produk",
+        "secondSchemaName": "public",
+        "secondRelation": "1",
+        "checkPoints": []
+      },
+      {
+        "firstFieldNames": [
+          "pegawai_id"
+        ],
+        "firstTableName": "shift_kasir",
+        "firstSchemaName": "public",
+        "firstRelation": "*",
+        "secondFieldNames": [
+          "id"
+        ],
+        "secondTableName": "pegawai",
+        "secondSchemaName": "public",
+        "secondRelation": "1",
+        "checkPoints": []
+      },
+      {
+        "firstFieldNames": [
+          "pegawai_id"
+        ],
+        "firstTableName": "kas",
+        "firstSchemaName": "public",
+        "firstRelation": "*",
+        "secondFieldNames": [
+          "id"
+        ],
+        "secondTableName": "pegawai",
+        "secondSchemaName": "public",
+        "secondRelation": "1",
+        "checkPoints": []
+      },
+      {
+        "firstFieldNames": [
+          "supplier_id"
+        ],
+        "firstTableName": "supplier_produk",
+        "firstSchemaName": "public",
+        "firstRelation": "*",
+        "secondFieldNames": [
+          "id"
+        ],
+        "secondTableName": "supplier",
+        "secondSchemaName": "public",
+        "secondRelation": "1",
+        "checkPoints": []
+      },
+      {
+        "firstFieldNames": [
+          "produk_id"
+        ],
+        "firstTableName": "supplier_produk",
+        "firstSchemaName": "public",
+        "firstRelation": "*",
+        "secondFieldNames": [
+          "id"
+        ],
+        "secondTableName": "produk",
+        "secondSchemaName": "public",
+        "secondRelation": "1",
+        "checkPoints": []
+      },
+      {
+        "firstFieldNames": [
+          "produk_id"
+        ],
+        "firstTableName": "log_stok",
+        "firstSchemaName": "public",
+        "firstRelation": "*",
+        "secondFieldNames": [
+          "id"
+        ],
+        "secondTableName": "produk",
+        "secondSchemaName": "public",
+        "secondRelation": "1",
+        "checkPoints": []
+      },
+      {
+        "firstFieldNames": [
+          "pegawai_id"
+        ],
+        "firstTableName": "log_stok",
+        "firstSchemaName": "public",
+        "firstRelation": "*",
+        "secondFieldNames": [
+          "id"
+        ],
+        "secondTableName": "pegawai",
+        "secondSchemaName": "public",
+        "secondRelation": "1",
+        "checkPoints": []
+      },
+      {
+        "firstFieldNames": [
+          "pelanggan_id"
+        ],
+        "firstTableName": "member",
+        "firstSchemaName": "public",
+        "firstRelation": "1",
+        "secondFieldNames": [
+          "id"
+        ],
+        "secondTableName": "pelanggan",
+        "secondSchemaName": "public",
+        "secondRelation": "1",
+        "checkPoints": []
+      },
+      {
+        "firstFieldNames": [
+          "member_id"
+        ],
+        "firstTableName": "transaksi_poin",
+        "firstSchemaName": "public",
+        "firstRelation": "*",
+        "secondFieldNames": [
+          "id"
+        ],
+        "secondTableName": "member",
+        "secondSchemaName": "public",
+        "secondRelation": "1",
+        "checkPoints": []
+      },
+      {
+        "firstFieldNames": [
+          "penjualan_id"
+        ],
+        "firstTableName": "transaksi_poin",
+        "firstSchemaName": "public",
+        "firstRelation": "*",
+        "secondFieldNames": [
+          "id"
+        ],
+        "secondTableName": "penjualan",
+        "secondSchemaName": "public",
+        "secondRelation": "1",
+        "checkPoints": []
+      }
+    ]
+  },
+  "views": {}
+}
