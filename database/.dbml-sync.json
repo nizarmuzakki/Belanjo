@@ -1,0 +1,2467 @@
+{
+    "tables": [
+        {
+            "name": "pengguna",
+            "schema": "public",
+            "note": "Staf internal: pemilik, manajer, admin gudang, kasir/operator",
+            "columns": [
+                {
+                    "name": "id_pengguna",
+                    "type": {
+                        "name": "int",
+                        "schemaName": null,
+                        "args": [],
+                        "original": null
+                    },
+                    "primaryKey": true,
+                    "unique": false,
+                    "notNull": false,
+                    "autoIncrement": true,
+                    "note": null,
+                    "defaultValue": null
+                },
+                {
+                    "name": "nama",
+                    "type": {
+                        "name": "varchar(100)",
+                        "schemaName": null,
+                        "args": "100",
+                        "original": null
+                    },
+                    "primaryKey": false,
+                    "unique": false,
+                    "notNull": true,
+                    "autoIncrement": false,
+                    "note": null,
+                    "defaultValue": null
+                },
+                {
+                    "name": "email",
+                    "type": {
+                        "name": "varchar(100)",
+                        "schemaName": null,
+                        "args": "100",
+                        "original": null
+                    },
+                    "primaryKey": false,
+                    "unique": true,
+                    "notNull": true,
+                    "autoIncrement": false,
+                    "note": "Dipakai untuk login",
+                    "defaultValue": null
+                },
+                {
+                    "name": "kata_sandi",
+                    "type": {
+                        "name": "varchar(255)",
+                        "schemaName": null,
+                        "args": "255",
+                        "original": null
+                    },
+                    "primaryKey": false,
+                    "unique": false,
+                    "notNull": true,
+                    "autoIncrement": false,
+                    "note": "Hash terenkripsi (bcrypt/argon2), bukan plaintext",
+                    "defaultValue": null
+                },
+                {
+                    "name": "peran",
+                    "type": {
+                        "name": "peran_pengguna",
+                        "schemaName": null,
+                        "args": [],
+                        "original": null
+                    },
+                    "primaryKey": false,
+                    "unique": false,
+                    "notNull": true,
+                    "autoIncrement": false,
+                    "note": "Menentukan hak akses (FR-12, BR-05)",
+                    "defaultValue": null
+                },
+                {
+                    "name": "telepon",
+                    "type": {
+                        "name": "varchar(20)",
+                        "schemaName": null,
+                        "args": "20",
+                        "original": null
+                    },
+                    "primaryKey": false,
+                    "unique": false,
+                    "notNull": false,
+                    "autoIncrement": false,
+                    "note": null,
+                    "defaultValue": null
+                },
+                {
+                    "name": "status_aktif",
+                    "type": {
+                        "name": "boolean",
+                        "schemaName": null,
+                        "args": [],
+                        "original": null
+                    },
+                    "primaryKey": false,
+                    "unique": false,
+                    "notNull": true,
+                    "autoIncrement": false,
+                    "note": null,
+                    "defaultValue": {
+                        "value": "true",
+                        "type": "boolean"
+                    }
+                },
+                {
+                    "name": "dibuat_pada",
+                    "type": {
+                        "name": "datetime",
+                        "schemaName": null,
+                        "args": [],
+                        "original": null
+                    },
+                    "primaryKey": false,
+                    "unique": false,
+                    "notNull": true,
+                    "autoIncrement": false,
+                    "note": null,
+                    "defaultValue": {
+                        "value": "now()",
+                        "type": "expression"
+                    }
+                },
+                {
+                    "name": "diperbarui_pada",
+                    "type": {
+                        "name": "datetime",
+                        "schemaName": null,
+                        "args": [],
+                        "original": null
+                    },
+                    "primaryKey": false,
+                    "unique": false,
+                    "notNull": false,
+                    "autoIncrement": false,
+                    "note": null,
+                    "defaultValue": null
+                }
+            ],
+            "indexes": []
+        },
+        {
+            "name": "pelanggan",
+            "schema": "public",
+            "note": null,
+            "columns": [
+                {
+                    "name": "id_pelanggan",
+                    "type": {
+                        "name": "int",
+                        "schemaName": null,
+                        "args": [],
+                        "original": null
+                    },
+                    "primaryKey": true,
+                    "unique": false,
+                    "notNull": false,
+                    "autoIncrement": true,
+                    "note": null,
+                    "defaultValue": null
+                },
+                {
+                    "name": "nama",
+                    "type": {
+                        "name": "varchar(100)",
+                        "schemaName": null,
+                        "args": "100",
+                        "original": null
+                    },
+                    "primaryKey": false,
+                    "unique": false,
+                    "notNull": true,
+                    "autoIncrement": false,
+                    "note": null,
+                    "defaultValue": null
+                },
+                {
+                    "name": "email",
+                    "type": {
+                        "name": "varchar(100)",
+                        "schemaName": null,
+                        "args": "100",
+                        "original": null
+                    },
+                    "primaryKey": false,
+                    "unique": true,
+                    "notNull": false,
+                    "autoIncrement": false,
+                    "note": null,
+                    "defaultValue": null
+                },
+                {
+                    "name": "telepon",
+                    "type": {
+                        "name": "varchar(20)",
+                        "schemaName": null,
+                        "args": "20",
+                        "original": null
+                    },
+                    "primaryKey": false,
+                    "unique": false,
+                    "notNull": false,
+                    "autoIncrement": false,
+                    "note": null,
+                    "defaultValue": null
+                },
+                {
+                    "name": "alamat",
+                    "type": {
+                        "name": "text",
+                        "schemaName": null,
+                        "args": [],
+                        "original": null
+                    },
+                    "primaryKey": false,
+                    "unique": false,
+                    "notNull": false,
+                    "autoIncrement": false,
+                    "note": "Alamat pengiriman",
+                    "defaultValue": null
+                },
+                {
+                    "name": "dibuat_pada",
+                    "type": {
+                        "name": "datetime",
+                        "schemaName": null,
+                        "args": [],
+                        "original": null
+                    },
+                    "primaryKey": false,
+                    "unique": false,
+                    "notNull": true,
+                    "autoIncrement": false,
+                    "note": null,
+                    "defaultValue": {
+                        "value": "now()",
+                        "type": "expression"
+                    }
+                }
+            ],
+            "indexes": []
+        },
+        {
+            "name": "kategori",
+            "schema": "public",
+            "note": null,
+            "columns": [
+                {
+                    "name": "id_kategori",
+                    "type": {
+                        "name": "int",
+                        "schemaName": null,
+                        "args": [],
+                        "original": null
+                    },
+                    "primaryKey": true,
+                    "unique": false,
+                    "notNull": false,
+                    "autoIncrement": true,
+                    "note": null,
+                    "defaultValue": null
+                },
+                {
+                    "name": "nama_kategori",
+                    "type": {
+                        "name": "varchar(100)",
+                        "schemaName": null,
+                        "args": "100",
+                        "original": null
+                    },
+                    "primaryKey": false,
+                    "unique": false,
+                    "notNull": true,
+                    "autoIncrement": false,
+                    "note": null,
+                    "defaultValue": null
+                },
+                {
+                    "name": "deskripsi",
+                    "type": {
+                        "name": "text",
+                        "schemaName": null,
+                        "args": [],
+                        "original": null
+                    },
+                    "primaryKey": false,
+                    "unique": false,
+                    "notNull": false,
+                    "autoIncrement": false,
+                    "note": null,
+                    "defaultValue": null
+                }
+            ],
+            "indexes": []
+        },
+        {
+            "name": "produk",
+            "schema": "public",
+            "note": null,
+            "columns": [
+                {
+                    "name": "id_produk",
+                    "type": {
+                        "name": "int",
+                        "schemaName": null,
+                        "args": [],
+                        "original": null
+                    },
+                    "primaryKey": true,
+                    "unique": false,
+                    "notNull": false,
+                    "autoIncrement": true,
+                    "note": null,
+                    "defaultValue": null
+                },
+                {
+                    "name": "id_kategori",
+                    "type": {
+                        "name": "int",
+                        "schemaName": null,
+                        "args": [],
+                        "original": null
+                    },
+                    "primaryKey": false,
+                    "unique": false,
+                    "notNull": true,
+                    "autoIncrement": false,
+                    "note": null,
+                    "defaultValue": null
+                },
+                {
+                    "name": "kode_sku",
+                    "type": {
+                        "name": "varchar(50)",
+                        "schemaName": null,
+                        "args": "50",
+                        "original": null
+                    },
+                    "primaryKey": false,
+                    "unique": true,
+                    "notNull": true,
+                    "autoIncrement": false,
+                    "note": null,
+                    "defaultValue": null
+                },
+                {
+                    "name": "nama_produk",
+                    "type": {
+                        "name": "varchar(150)",
+                        "schemaName": null,
+                        "args": "150",
+                        "original": null
+                    },
+                    "primaryKey": false,
+                    "unique": false,
+                    "notNull": true,
+                    "autoIncrement": false,
+                    "note": null,
+                    "defaultValue": null
+                },
+                {
+                    "name": "deskripsi",
+                    "type": {
+                        "name": "text",
+                        "schemaName": null,
+                        "args": [],
+                        "original": null
+                    },
+                    "primaryKey": false,
+                    "unique": false,
+                    "notNull": false,
+                    "autoIncrement": false,
+                    "note": null,
+                    "defaultValue": null
+                },
+                {
+                    "name": "harga_pokok",
+                    "type": {
+                        "name": "decimal(12,2)",
+                        "schemaName": null,
+                        "args": "12,2",
+                        "original": null
+                    },
+                    "primaryKey": false,
+                    "unique": false,
+                    "notNull": true,
+                    "autoIncrement": false,
+                    "note": "HPP TERBARU. Disalin ke detail_transaksi saat transaksi (BR-06)",
+                    "defaultValue": null
+                },
+                {
+                    "name": "harga_jual",
+                    "type": {
+                        "name": "decimal(12,2)",
+                        "schemaName": null,
+                        "args": "12,2",
+                        "original": null
+                    },
+                    "primaryKey": false,
+                    "unique": false,
+                    "notNull": true,
+                    "autoIncrement": false,
+                    "note": "Harga berlaku saat ini. Disalin ke detail_transaksi (BR-07)",
+                    "defaultValue": null
+                },
+                {
+                    "name": "satuan",
+                    "type": {
+                        "name": "varchar(20)",
+                        "schemaName": null,
+                        "args": "20",
+                        "original": null
+                    },
+                    "primaryKey": false,
+                    "unique": false,
+                    "notNull": true,
+                    "autoIncrement": false,
+                    "note": "pcs, kg, box, dst.",
+                    "defaultValue": null
+                },
+                {
+                    "name": "jumlah_stok",
+                    "type": {
+                        "name": "int",
+                        "schemaName": null,
+                        "args": [],
+                        "original": null
+                    },
+                    "primaryKey": false,
+                    "unique": false,
+                    "notNull": true,
+                    "autoIncrement": false,
+                    "note": "Denormalisasi: harus = SUM(riwayat_stok.jumlah). Diperbarui otomatis (FR-08, FR-10)",
+                    "defaultValue": {
+                        "value": 0,
+                        "type": "number"
+                    }
+                },
+                {
+                    "name": "stok_minimum",
+                    "type": {
+                        "name": "int",
+                        "schemaName": null,
+                        "args": [],
+                        "original": null
+                    },
+                    "primaryKey": false,
+                    "unique": false,
+                    "notNull": true,
+                    "autoIncrement": false,
+                    "note": "Batas pemicu low stock alert (FR-09, BR-04)",
+                    "defaultValue": {
+                        "value": 0,
+                        "type": "number"
+                    }
+                },
+                {
+                    "name": "status_aktif",
+                    "type": {
+                        "name": "boolean",
+                        "schemaName": null,
+                        "args": [],
+                        "original": null
+                    },
+                    "primaryKey": false,
+                    "unique": false,
+                    "notNull": true,
+                    "autoIncrement": false,
+                    "note": null,
+                    "defaultValue": {
+                        "value": "true",
+                        "type": "boolean"
+                    }
+                },
+                {
+                    "name": "dibuat_pada",
+                    "type": {
+                        "name": "datetime",
+                        "schemaName": null,
+                        "args": [],
+                        "original": null
+                    },
+                    "primaryKey": false,
+                    "unique": false,
+                    "notNull": true,
+                    "autoIncrement": false,
+                    "note": null,
+                    "defaultValue": {
+                        "value": "now()",
+                        "type": "expression"
+                    }
+                },
+                {
+                    "name": "diperbarui_pada",
+                    "type": {
+                        "name": "datetime",
+                        "schemaName": null,
+                        "args": [],
+                        "original": null
+                    },
+                    "primaryKey": false,
+                    "unique": false,
+                    "notNull": false,
+                    "autoIncrement": false,
+                    "note": null,
+                    "defaultValue": null
+                }
+            ],
+            "indexes": [
+                {
+                    "name": null,
+                    "type": null,
+                    "unique": false,
+                    "columns": [
+                        "id_kategori"
+                    ]
+                },
+                {
+                    "name": null,
+                    "type": null,
+                    "unique": false,
+                    "columns": [
+                        "nama_produk"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "perangkat_pos",
+            "schema": "public",
+            "note": "Identitas perangkat/POS asal transaksi (FR-15, NFR-06)",
+            "columns": [
+                {
+                    "name": "id_perangkat",
+                    "type": {
+                        "name": "char(36)",
+                        "schemaName": null,
+                        "args": "36",
+                        "original": null
+                    },
+                    "primaryKey": true,
+                    "unique": false,
+                    "notNull": false,
+                    "autoIncrement": false,
+                    "note": "UUID perangkat",
+                    "defaultValue": null
+                },
+                {
+                    "name": "kode_perangkat",
+                    "type": {
+                        "name": "varchar(50)",
+                        "schemaName": null,
+                        "args": "50",
+                        "original": null
+                    },
+                    "primaryKey": false,
+                    "unique": true,
+                    "notNull": true,
+                    "autoIncrement": false,
+                    "note": null,
+                    "defaultValue": null
+                },
+                {
+                    "name": "nama_perangkat",
+                    "type": {
+                        "name": "varchar(100)",
+                        "schemaName": null,
+                        "args": "100",
+                        "original": null
+                    },
+                    "primaryKey": false,
+                    "unique": false,
+                    "notNull": true,
+                    "autoIncrement": false,
+                    "note": null,
+                    "defaultValue": null
+                },
+                {
+                    "name": "status_aktif",
+                    "type": {
+                        "name": "boolean",
+                        "schemaName": null,
+                        "args": [],
+                        "original": null
+                    },
+                    "primaryKey": false,
+                    "unique": false,
+                    "notNull": true,
+                    "autoIncrement": false,
+                    "note": null,
+                    "defaultValue": {
+                        "value": "true",
+                        "type": "boolean"
+                    }
+                },
+                {
+                    "name": "terakhir_sinkron",
+                    "type": {
+                        "name": "datetime",
+                        "schemaName": null,
+                        "args": [],
+                        "original": null
+                    },
+                    "primaryKey": false,
+                    "unique": false,
+                    "notNull": false,
+                    "autoIncrement": false,
+                    "note": null,
+                    "defaultValue": null
+                },
+                {
+                    "name": "dibuat_pada",
+                    "type": {
+                        "name": "datetime",
+                        "schemaName": null,
+                        "args": [],
+                        "original": null
+                    },
+                    "primaryKey": false,
+                    "unique": false,
+                    "notNull": true,
+                    "autoIncrement": false,
+                    "note": null,
+                    "defaultValue": {
+                        "value": "now()",
+                        "type": "expression"
+                    }
+                }
+            ],
+            "indexes": []
+        },
+        {
+            "name": "log_sinkronisasi",
+            "schema": "public",
+            "note": "Satu baris per pengiriman batch dari mode offline (FR-15, BR-03)",
+            "columns": [
+                {
+                    "name": "id_log",
+                    "type": {
+                        "name": "int",
+                        "schemaName": null,
+                        "args": [],
+                        "original": null
+                    },
+                    "primaryKey": true,
+                    "unique": false,
+                    "notNull": false,
+                    "autoIncrement": true,
+                    "note": null,
+                    "defaultValue": null
+                },
+                {
+                    "name": "id_perangkat",
+                    "type": {
+                        "name": "char(36)",
+                        "schemaName": null,
+                        "args": "36",
+                        "original": null
+                    },
+                    "primaryKey": false,
+                    "unique": false,
+                    "notNull": true,
+                    "autoIncrement": false,
+                    "note": null,
+                    "defaultValue": null
+                },
+                {
+                    "name": "waktu_mulai",
+                    "type": {
+                        "name": "datetime",
+                        "schemaName": null,
+                        "args": [],
+                        "original": null
+                    },
+                    "primaryKey": false,
+                    "unique": false,
+                    "notNull": true,
+                    "autoIncrement": false,
+                    "note": null,
+                    "defaultValue": null
+                },
+                {
+                    "name": "waktu_selesai",
+                    "type": {
+                        "name": "datetime",
+                        "schemaName": null,
+                        "args": [],
+                        "original": null
+                    },
+                    "primaryKey": false,
+                    "unique": false,
+                    "notNull": false,
+                    "autoIncrement": false,
+                    "note": null,
+                    "defaultValue": null
+                },
+                {
+                    "name": "status",
+                    "type": {
+                        "name": "status_log_sinkron",
+                        "schemaName": null,
+                        "args": [],
+                        "original": null
+                    },
+                    "primaryKey": false,
+                    "unique": false,
+                    "notNull": true,
+                    "autoIncrement": false,
+                    "note": null,
+                    "defaultValue": null
+                },
+                {
+                    "name": "jumlah_data_dikirim",
+                    "type": {
+                        "name": "int",
+                        "schemaName": null,
+                        "args": [],
+                        "original": null
+                    },
+                    "primaryKey": false,
+                    "unique": false,
+                    "notNull": true,
+                    "autoIncrement": false,
+                    "note": null,
+                    "defaultValue": {
+                        "value": 0,
+                        "type": "number"
+                    }
+                },
+                {
+                    "name": "jumlah_data_berhasil",
+                    "type": {
+                        "name": "int",
+                        "schemaName": null,
+                        "args": [],
+                        "original": null
+                    },
+                    "primaryKey": false,
+                    "unique": false,
+                    "notNull": true,
+                    "autoIncrement": false,
+                    "note": "Dipakai untuk melanjutkan batch yang gagal/sebagian",
+                    "defaultValue": {
+                        "value": 0,
+                        "type": "number"
+                    }
+                },
+                {
+                    "name": "jumlah_percobaan",
+                    "type": {
+                        "name": "int",
+                        "schemaName": null,
+                        "args": [],
+                        "original": null
+                    },
+                    "primaryKey": false,
+                    "unique": false,
+                    "notNull": true,
+                    "autoIncrement": false,
+                    "note": null,
+                    "defaultValue": {
+                        "value": 1,
+                        "type": "number"
+                    }
+                },
+                {
+                    "name": "pesan_kesalahan",
+                    "type": {
+                        "name": "text",
+                        "schemaName": null,
+                        "args": [],
+                        "original": null
+                    },
+                    "primaryKey": false,
+                    "unique": false,
+                    "notNull": false,
+                    "autoIncrement": false,
+                    "note": null,
+                    "defaultValue": null
+                }
+            ],
+            "indexes": [
+                {
+                    "name": null,
+                    "type": null,
+                    "unique": false,
+                    "columns": [
+                        "id_perangkat",
+                        "waktu_mulai"
+                    ]
+                },
+                {
+                    "name": null,
+                    "type": null,
+                    "unique": false,
+                    "columns": [
+                        "status"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "transaksi",
+            "schema": "public",
+            "note": null,
+            "columns": [
+                {
+                    "name": "id_transaksi",
+                    "type": {
+                        "name": "char(36)",
+                        "schemaName": null,
+                        "args": "36",
+                        "original": null
+                    },
+                    "primaryKey": true,
+                    "unique": false,
+                    "notNull": false,
+                    "autoIncrement": false,
+                    "note": "UUID dibuat di perangkat agar unik global (FR-11, NFR-06)",
+                    "defaultValue": null
+                },
+                {
+                    "name": "kode_transaksi",
+                    "type": {
+                        "name": "varchar(30)",
+                        "schemaName": null,
+                        "args": "30",
+                        "original": null
+                    },
+                    "primaryKey": false,
+                    "unique": true,
+                    "notNull": true,
+                    "autoIncrement": false,
+                    "note": null,
+                    "defaultValue": null
+                },
+                {
+                    "name": "id_pelanggan",
+                    "type": {
+                        "name": "int",
+                        "schemaName": null,
+                        "args": [],
+                        "original": null
+                    },
+                    "primaryKey": false,
+                    "unique": false,
+                    "notNull": false,
+                    "autoIncrement": false,
+                    "note": "Nullable: pembeli walk-in",
+                    "defaultValue": null
+                },
+                {
+                    "name": "id_pengguna",
+                    "type": {
+                        "name": "int",
+                        "schemaName": null,
+                        "args": [],
+                        "original": null
+                    },
+                    "primaryKey": false,
+                    "unique": false,
+                    "notNull": false,
+                    "autoIncrement": false,
+                    "note": "Kasir/operator. Nullable untuk pembelian online mandiri",
+                    "defaultValue": null
+                },
+                {
+                    "name": "id_perangkat",
+                    "type": {
+                        "name": "char(36)",
+                        "schemaName": null,
+                        "args": "36",
+                        "original": null
+                    },
+                    "primaryKey": false,
+                    "unique": false,
+                    "notNull": false,
+                    "autoIncrement": false,
+                    "note": "Perangkat POS asal (NULL jika dibuat langsung di server)",
+                    "defaultValue": null
+                },
+                {
+                    "name": "id_log_sinkronisasi",
+                    "type": {
+                        "name": "int",
+                        "schemaName": null,
+                        "args": [],
+                        "original": null
+                    },
+                    "primaryKey": false,
+                    "unique": false,
+                    "notNull": false,
+                    "autoIncrement": false,
+                    "note": "Batch sinkronisasi yang membawa transaksi ini (NULL jika online)",
+                    "defaultValue": null
+                },
+                {
+                    "name": "tanggal_transaksi",
+                    "type": {
+                        "name": "datetime",
+                        "schemaName": null,
+                        "args": [],
+                        "original": null
+                    },
+                    "primaryKey": false,
+                    "unique": false,
+                    "notNull": true,
+                    "autoIncrement": false,
+                    "note": null,
+                    "defaultValue": null
+                },
+                {
+                    "name": "status",
+                    "type": {
+                        "name": "status_transaksi",
+                        "schemaName": null,
+                        "args": [],
+                        "original": null
+                    },
+                    "primaryKey": false,
+                    "unique": false,
+                    "notNull": true,
+                    "autoIncrement": false,
+                    "note": null,
+                    "defaultValue": {
+                        "value": "pending",
+                        "type": "string"
+                    }
+                },
+                {
+                    "name": "saluran",
+                    "type": {
+                        "name": "saluran_transaksi",
+                        "schemaName": null,
+                        "args": [],
+                        "original": null
+                    },
+                    "primaryKey": false,
+                    "unique": false,
+                    "notNull": true,
+                    "autoIncrement": false,
+                    "note": null,
+                    "defaultValue": null
+                },
+                {
+                    "name": "status_sinkronisasi",
+                    "type": {
+                        "name": "status_sinkron_transaksi",
+                        "schemaName": null,
+                        "args": [],
+                        "original": null
+                    },
+                    "primaryKey": false,
+                    "unique": false,
+                    "notNull": true,
+                    "autoIncrement": false,
+                    "note": null,
+                    "defaultValue": {
+                        "value": "tersinkron",
+                        "type": "string"
+                    }
+                },
+                {
+                    "name": "subtotal",
+                    "type": {
+                        "name": "decimal(14,2)",
+                        "schemaName": null,
+                        "args": "14,2",
+                        "original": null
+                    },
+                    "primaryKey": false,
+                    "unique": false,
+                    "notNull": true,
+                    "autoIncrement": false,
+                    "note": null,
+                    "defaultValue": {
+                        "value": 0,
+                        "type": "number"
+                    }
+                },
+                {
+                    "name": "diskon",
+                    "type": {
+                        "name": "decimal(14,2)",
+                        "schemaName": null,
+                        "args": "14,2",
+                        "original": null
+                    },
+                    "primaryKey": false,
+                    "unique": false,
+                    "notNull": true,
+                    "autoIncrement": false,
+                    "note": null,
+                    "defaultValue": {
+                        "value": 0,
+                        "type": "number"
+                    }
+                },
+                {
+                    "name": "pajak",
+                    "type": {
+                        "name": "decimal(14,2)",
+                        "schemaName": null,
+                        "args": "14,2",
+                        "original": null
+                    },
+                    "primaryKey": false,
+                    "unique": false,
+                    "notNull": true,
+                    "autoIncrement": false,
+                    "note": null,
+                    "defaultValue": {
+                        "value": 0,
+                        "type": "number"
+                    }
+                },
+                {
+                    "name": "total_bayar",
+                    "type": {
+                        "name": "decimal(14,2)",
+                        "schemaName": null,
+                        "args": "14,2",
+                        "original": null
+                    },
+                    "primaryKey": false,
+                    "unique": false,
+                    "notNull": true,
+                    "autoIncrement": false,
+                    "note": "subtotal - diskon + pajak",
+                    "defaultValue": {
+                        "value": 0,
+                        "type": "number"
+                    }
+                },
+                {
+                    "name": "waktu_sinkronisasi",
+                    "type": {
+                        "name": "datetime",
+                        "schemaName": null,
+                        "args": [],
+                        "original": null
+                    },
+                    "primaryKey": false,
+                    "unique": false,
+                    "notNull": false,
+                    "autoIncrement": false,
+                    "note": "Untuk cek batas 24 jam (BR-03)",
+                    "defaultValue": null
+                },
+                {
+                    "name": "dibuat_pada",
+                    "type": {
+                        "name": "datetime",
+                        "schemaName": null,
+                        "args": [],
+                        "original": null
+                    },
+                    "primaryKey": false,
+                    "unique": false,
+                    "notNull": true,
+                    "autoIncrement": false,
+                    "note": null,
+                    "defaultValue": {
+                        "value": "now()",
+                        "type": "expression"
+                    }
+                }
+            ],
+            "indexes": [
+                {
+                    "name": null,
+                    "type": null,
+                    "unique": false,
+                    "columns": [
+                        "tanggal_transaksi"
+                    ]
+                },
+                {
+                    "name": null,
+                    "type": null,
+                    "unique": false,
+                    "columns": [
+                        "id_pelanggan"
+                    ]
+                },
+                {
+                    "name": null,
+                    "type": null,
+                    "unique": false,
+                    "columns": [
+                        "id_pengguna"
+                    ]
+                },
+                {
+                    "name": null,
+                    "type": null,
+                    "unique": false,
+                    "columns": [
+                        "status_sinkronisasi",
+                        "saluran"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "detail_transaksi",
+            "schema": "public",
+            "note": null,
+            "columns": [
+                {
+                    "name": "id_detail",
+                    "type": {
+                        "name": "int",
+                        "schemaName": null,
+                        "args": [],
+                        "original": null
+                    },
+                    "primaryKey": true,
+                    "unique": false,
+                    "notNull": false,
+                    "autoIncrement": true,
+                    "note": null,
+                    "defaultValue": null
+                },
+                {
+                    "name": "id_transaksi",
+                    "type": {
+                        "name": "char(36)",
+                        "schemaName": null,
+                        "args": "36",
+                        "original": null
+                    },
+                    "primaryKey": false,
+                    "unique": false,
+                    "notNull": true,
+                    "autoIncrement": false,
+                    "note": null,
+                    "defaultValue": null
+                },
+                {
+                    "name": "id_produk",
+                    "type": {
+                        "name": "int",
+                        "schemaName": null,
+                        "args": [],
+                        "original": null
+                    },
+                    "primaryKey": false,
+                    "unique": false,
+                    "notNull": true,
+                    "autoIncrement": false,
+                    "note": null,
+                    "defaultValue": null
+                },
+                {
+                    "name": "jumlah",
+                    "type": {
+                        "name": "int",
+                        "schemaName": null,
+                        "args": [],
+                        "original": null
+                    },
+                    "primaryKey": false,
+                    "unique": false,
+                    "notNull": true,
+                    "autoIncrement": false,
+                    "note": null,
+                    "defaultValue": null
+                },
+                {
+                    "name": "harga_satuan",
+                    "type": {
+                        "name": "decimal(12,2)",
+                        "schemaName": null,
+                        "args": "12,2",
+                        "original": null
+                    },
+                    "primaryKey": false,
+                    "unique": false,
+                    "notNull": true,
+                    "autoIncrement": false,
+                    "note": "Di-set server dari produk.harga_jual saat transaksi; tidak bisa diubah kasir (FR-01, BR-07, NFR-02)",
+                    "defaultValue": null
+                },
+                {
+                    "name": "harga_pokok",
+                    "type": {
+                        "name": "decimal(12,2)",
+                        "schemaName": null,
+                        "args": "12,2",
+                        "original": null
+                    },
+                    "primaryKey": false,
+                    "unique": false,
+                    "notNull": true,
+                    "autoIncrement": false,
+                    "note": "HPP satuan terkunci saat transaksi (FR-04, BR-02, BR-06)",
+                    "defaultValue": null
+                },
+                {
+                    "name": "subtotal",
+                    "type": {
+                        "name": "decimal(14,2)",
+                        "schemaName": null,
+                        "args": "14,2",
+                        "original": null
+                    },
+                    "primaryKey": false,
+                    "unique": false,
+                    "notNull": true,
+                    "autoIncrement": false,
+                    "note": "jumlah x harga_satuan; dasar best seller (FR-06)",
+                    "defaultValue": null
+                }
+            ],
+            "indexes": [
+                {
+                    "name": null,
+                    "type": null,
+                    "unique": true,
+                    "columns": [
+                        "id_transaksi",
+                        "id_produk"
+                    ]
+                },
+                {
+                    "name": null,
+                    "type": null,
+                    "unique": false,
+                    "columns": [
+                        "id_produk"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "pembayaran",
+            "schema": "public",
+            "note": null,
+            "columns": [
+                {
+                    "name": "id_pembayaran",
+                    "type": {
+                        "name": "int",
+                        "schemaName": null,
+                        "args": [],
+                        "original": null
+                    },
+                    "primaryKey": true,
+                    "unique": false,
+                    "notNull": false,
+                    "autoIncrement": true,
+                    "note": null,
+                    "defaultValue": null
+                },
+                {
+                    "name": "id_transaksi",
+                    "type": {
+                        "name": "char(36)",
+                        "schemaName": null,
+                        "args": "36",
+                        "original": null
+                    },
+                    "primaryKey": false,
+                    "unique": false,
+                    "notNull": true,
+                    "autoIncrement": false,
+                    "note": null,
+                    "defaultValue": null
+                },
+                {
+                    "name": "metode_pembayaran",
+                    "type": {
+                        "name": "metode_pembayaran",
+                        "schemaName": null,
+                        "args": [],
+                        "original": null
+                    },
+                    "primaryKey": false,
+                    "unique": false,
+                    "notNull": true,
+                    "autoIncrement": false,
+                    "note": null,
+                    "defaultValue": null
+                },
+                {
+                    "name": "jumlah_dibayar",
+                    "type": {
+                        "name": "decimal(14,2)",
+                        "schemaName": null,
+                        "args": "14,2",
+                        "original": null
+                    },
+                    "primaryKey": false,
+                    "unique": false,
+                    "notNull": true,
+                    "autoIncrement": false,
+                    "note": null,
+                    "defaultValue": null
+                },
+                {
+                    "name": "status_pembayaran",
+                    "type": {
+                        "name": "status_pembayaran",
+                        "schemaName": null,
+                        "args": [],
+                        "original": null
+                    },
+                    "primaryKey": false,
+                    "unique": false,
+                    "notNull": true,
+                    "autoIncrement": false,
+                    "note": null,
+                    "defaultValue": {
+                        "value": "menunggu",
+                        "type": "string"
+                    }
+                },
+                {
+                    "name": "dibayar_pada",
+                    "type": {
+                        "name": "datetime",
+                        "schemaName": null,
+                        "args": [],
+                        "original": null
+                    },
+                    "primaryKey": false,
+                    "unique": false,
+                    "notNull": false,
+                    "autoIncrement": false,
+                    "note": null,
+                    "defaultValue": null
+                }
+            ],
+            "indexes": [
+                {
+                    "name": null,
+                    "type": null,
+                    "unique": false,
+                    "columns": [
+                        "id_transaksi"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "retur",
+            "schema": "public",
+            "note": null,
+            "columns": [
+                {
+                    "name": "id_retur",
+                    "type": {
+                        "name": "int",
+                        "schemaName": null,
+                        "args": [],
+                        "original": null
+                    },
+                    "primaryKey": true,
+                    "unique": false,
+                    "notNull": false,
+                    "autoIncrement": true,
+                    "note": null,
+                    "defaultValue": null
+                },
+                {
+                    "name": "id_transaksi",
+                    "type": {
+                        "name": "char(36)",
+                        "schemaName": null,
+                        "args": "36",
+                        "original": null
+                    },
+                    "primaryKey": false,
+                    "unique": false,
+                    "notNull": true,
+                    "autoIncrement": false,
+                    "note": null,
+                    "defaultValue": null
+                },
+                {
+                    "name": "id_produk",
+                    "type": {
+                        "name": "int",
+                        "schemaName": null,
+                        "args": [],
+                        "original": null
+                    },
+                    "primaryKey": false,
+                    "unique": false,
+                    "notNull": true,
+                    "autoIncrement": false,
+                    "note": null,
+                    "defaultValue": null
+                },
+                {
+                    "name": "jumlah",
+                    "type": {
+                        "name": "int",
+                        "schemaName": null,
+                        "args": [],
+                        "original": null
+                    },
+                    "primaryKey": false,
+                    "unique": false,
+                    "notNull": true,
+                    "autoIncrement": false,
+                    "note": null,
+                    "defaultValue": null
+                },
+                {
+                    "name": "alasan",
+                    "type": {
+                        "name": "text",
+                        "schemaName": null,
+                        "args": [],
+                        "original": null
+                    },
+                    "primaryKey": false,
+                    "unique": false,
+                    "notNull": false,
+                    "autoIncrement": false,
+                    "note": null,
+                    "defaultValue": null
+                },
+                {
+                    "name": "tanggal_retur",
+                    "type": {
+                        "name": "datetime",
+                        "schemaName": null,
+                        "args": [],
+                        "original": null
+                    },
+                    "primaryKey": false,
+                    "unique": false,
+                    "notNull": true,
+                    "autoIncrement": false,
+                    "note": null,
+                    "defaultValue": null
+                },
+                {
+                    "name": "id_pengguna",
+                    "type": {
+                        "name": "int",
+                        "schemaName": null,
+                        "args": [],
+                        "original": null
+                    },
+                    "primaryKey": false,
+                    "unique": false,
+                    "notNull": true,
+                    "autoIncrement": false,
+                    "note": "Pemroses retur",
+                    "defaultValue": null
+                }
+            ],
+            "indexes": [
+                {
+                    "name": null,
+                    "type": null,
+                    "unique": false,
+                    "columns": [
+                        "id_transaksi"
+                    ]
+                },
+                {
+                    "name": null,
+                    "type": null,
+                    "unique": false,
+                    "columns": [
+                        "id_produk"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "riwayat_stok",
+            "schema": "public",
+            "note": "APPEND-ONLY: tidak boleh di-UPDATE/DELETE (BR-01, FR-14). Koreksi dengan baris penyesuaian baru",
+            "columns": [
+                {
+                    "name": "id_riwayat",
+                    "type": {
+                        "name": "int",
+                        "schemaName": null,
+                        "args": [],
+                        "original": null
+                    },
+                    "primaryKey": true,
+                    "unique": false,
+                    "notNull": false,
+                    "autoIncrement": true,
+                    "note": null,
+                    "defaultValue": null
+                },
+                {
+                    "name": "id_produk",
+                    "type": {
+                        "name": "int",
+                        "schemaName": null,
+                        "args": [],
+                        "original": null
+                    },
+                    "primaryKey": false,
+                    "unique": false,
+                    "notNull": true,
+                    "autoIncrement": false,
+                    "note": null,
+                    "defaultValue": null
+                },
+                {
+                    "name": "jenis_pergerakan",
+                    "type": {
+                        "name": "jenis_pergerakan_stok",
+                        "schemaName": null,
+                        "args": [],
+                        "original": null
+                    },
+                    "primaryKey": false,
+                    "unique": false,
+                    "notNull": true,
+                    "autoIncrement": false,
+                    "note": null,
+                    "defaultValue": null
+                },
+                {
+                    "name": "jumlah",
+                    "type": {
+                        "name": "int",
+                        "schemaName": null,
+                        "args": [],
+                        "original": null
+                    },
+                    "primaryKey": false,
+                    "unique": false,
+                    "notNull": true,
+                    "autoIncrement": false,
+                    "note": "Bertanda: positif = bertambah, negatif = berkurang",
+                    "defaultValue": null
+                },
+                {
+                    "name": "id_transaksi",
+                    "type": {
+                        "name": "char(36)",
+                        "schemaName": null,
+                        "args": "36",
+                        "original": null
+                    },
+                    "primaryKey": false,
+                    "unique": false,
+                    "notNull": false,
+                    "autoIncrement": false,
+                    "note": "Terisi bila mutasi berasal dari penjualan",
+                    "defaultValue": null
+                },
+                {
+                    "name": "id_retur",
+                    "type": {
+                        "name": "int",
+                        "schemaName": null,
+                        "args": [],
+                        "original": null
+                    },
+                    "primaryKey": false,
+                    "unique": false,
+                    "notNull": false,
+                    "autoIncrement": false,
+                    "note": "Terisi bila mutasi berasal dari retur",
+                    "defaultValue": null
+                },
+                {
+                    "name": "catatan",
+                    "type": {
+                        "name": "text",
+                        "schemaName": null,
+                        "args": [],
+                        "original": null
+                    },
+                    "primaryKey": false,
+                    "unique": false,
+                    "notNull": false,
+                    "autoIncrement": false,
+                    "note": null,
+                    "defaultValue": null
+                },
+                {
+                    "name": "id_pengguna",
+                    "type": {
+                        "name": "int",
+                        "schemaName": null,
+                        "args": [],
+                        "original": null
+                    },
+                    "primaryKey": false,
+                    "unique": false,
+                    "notNull": true,
+                    "autoIncrement": false,
+                    "note": "Pencatat (mis. Admin Gudang)",
+                    "defaultValue": null
+                },
+                {
+                    "name": "dicatat_pada",
+                    "type": {
+                        "name": "datetime",
+                        "schemaName": null,
+                        "args": [],
+                        "original": null
+                    },
+                    "primaryKey": false,
+                    "unique": false,
+                    "notNull": true,
+                    "autoIncrement": false,
+                    "note": null,
+                    "defaultValue": {
+                        "value": "now()",
+                        "type": "expression"
+                    }
+                }
+            ],
+            "indexes": [
+                {
+                    "name": null,
+                    "type": null,
+                    "unique": false,
+                    "columns": [
+                        "id_produk",
+                        "dicatat_pada"
+                    ]
+                },
+                {
+                    "name": null,
+                    "type": null,
+                    "unique": false,
+                    "columns": [
+                        "id_transaksi"
+                    ]
+                },
+                {
+                    "name": null,
+                    "type": null,
+                    "unique": false,
+                    "columns": [
+                        "id_retur"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "notifikasi_stok",
+            "schema": "public",
+            "note": "Dibuat otomatis saat jumlah_stok <= stok_minimum (FR-09, BR-04)",
+            "columns": [
+                {
+                    "name": "id_notifikasi",
+                    "type": {
+                        "name": "int",
+                        "schemaName": null,
+                        "args": [],
+                        "original": null
+                    },
+                    "primaryKey": true,
+                    "unique": false,
+                    "notNull": false,
+                    "autoIncrement": true,
+                    "note": null,
+                    "defaultValue": null
+                },
+                {
+                    "name": "id_produk",
+                    "type": {
+                        "name": "int",
+                        "schemaName": null,
+                        "args": [],
+                        "original": null
+                    },
+                    "primaryKey": false,
+                    "unique": false,
+                    "notNull": true,
+                    "autoIncrement": false,
+                    "note": null,
+                    "defaultValue": null
+                },
+                {
+                    "name": "id_penerima",
+                    "type": {
+                        "name": "int",
+                        "schemaName": null,
+                        "args": [],
+                        "original": null
+                    },
+                    "primaryKey": false,
+                    "unique": false,
+                    "notNull": true,
+                    "autoIncrement": false,
+                    "note": "Pengguna ber-peran admin_gudang",
+                    "defaultValue": null
+                },
+                {
+                    "name": "jenis",
+                    "type": {
+                        "name": "jenis_notifikasi",
+                        "schemaName": null,
+                        "args": [],
+                        "original": null
+                    },
+                    "primaryKey": false,
+                    "unique": false,
+                    "notNull": true,
+                    "autoIncrement": false,
+                    "note": null,
+                    "defaultValue": null
+                },
+                {
+                    "name": "pesan",
+                    "type": {
+                        "name": "varchar(255)",
+                        "schemaName": null,
+                        "args": "255",
+                        "original": null
+                    },
+                    "primaryKey": false,
+                    "unique": false,
+                    "notNull": true,
+                    "autoIncrement": false,
+                    "note": null,
+                    "defaultValue": null
+                },
+                {
+                    "name": "sudah_dibaca",
+                    "type": {
+                        "name": "boolean",
+                        "schemaName": null,
+                        "args": [],
+                        "original": null
+                    },
+                    "primaryKey": false,
+                    "unique": false,
+                    "notNull": true,
+                    "autoIncrement": false,
+                    "note": null,
+                    "defaultValue": {
+                        "value": "false",
+                        "type": "boolean"
+                    }
+                },
+                {
+                    "name": "dibuat_pada",
+                    "type": {
+                        "name": "datetime",
+                        "schemaName": null,
+                        "args": [],
+                        "original": null
+                    },
+                    "primaryKey": false,
+                    "unique": false,
+                    "notNull": true,
+                    "autoIncrement": false,
+                    "note": null,
+                    "defaultValue": {
+                        "value": "now()",
+                        "type": "expression"
+                    }
+                }
+            ],
+            "indexes": [
+                {
+                    "name": null,
+                    "type": null,
+                    "unique": false,
+                    "columns": [
+                        "id_penerima",
+                        "sudah_dibaca"
+                    ]
+                },
+                {
+                    "name": null,
+                    "type": null,
+                    "unique": false,
+                    "columns": [
+                        "id_produk"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "biaya_operasional",
+            "schema": "public",
+            "note": null,
+            "columns": [
+                {
+                    "name": "id_biaya",
+                    "type": {
+                        "name": "int",
+                        "schemaName": null,
+                        "args": [],
+                        "original": null
+                    },
+                    "primaryKey": true,
+                    "unique": false,
+                    "notNull": false,
+                    "autoIncrement": true,
+                    "note": null,
+                    "defaultValue": null
+                },
+                {
+                    "name": "kategori_biaya",
+                    "type": {
+                        "name": "varchar(100)",
+                        "schemaName": null,
+                        "args": "100",
+                        "original": null
+                    },
+                    "primaryKey": false,
+                    "unique": false,
+                    "notNull": true,
+                    "autoIncrement": false,
+                    "note": "Sewa, gaji, listrik, dst.",
+                    "defaultValue": null
+                },
+                {
+                    "name": "deskripsi",
+                    "type": {
+                        "name": "text",
+                        "schemaName": null,
+                        "args": [],
+                        "original": null
+                    },
+                    "primaryKey": false,
+                    "unique": false,
+                    "notNull": false,
+                    "autoIncrement": false,
+                    "note": null,
+                    "defaultValue": null
+                },
+                {
+                    "name": "jumlah",
+                    "type": {
+                        "name": "decimal(14,2)",
+                        "schemaName": null,
+                        "args": "14,2",
+                        "original": null
+                    },
+                    "primaryKey": false,
+                    "unique": false,
+                    "notNull": true,
+                    "autoIncrement": false,
+                    "note": null,
+                    "defaultValue": null
+                },
+                {
+                    "name": "tanggal_biaya",
+                    "type": {
+                        "name": "date",
+                        "schemaName": null,
+                        "args": [],
+                        "original": null
+                    },
+                    "primaryKey": false,
+                    "unique": false,
+                    "notNull": true,
+                    "autoIncrement": false,
+                    "note": null,
+                    "defaultValue": null
+                },
+                {
+                    "name": "id_pengguna",
+                    "type": {
+                        "name": "int",
+                        "schemaName": null,
+                        "args": [],
+                        "original": null
+                    },
+                    "primaryKey": false,
+                    "unique": false,
+                    "notNull": true,
+                    "autoIncrement": false,
+                    "note": "Pencatat",
+                    "defaultValue": null
+                }
+            ],
+            "indexes": [
+                {
+                    "name": null,
+                    "type": null,
+                    "unique": false,
+                    "columns": [
+                        "tanggal_biaya"
+                    ]
+                }
+            ]
+        }
+    ],
+    "enums": [
+        {
+            "name": "peran_pengguna",
+            "schema": "public",
+            "values": [
+                "pemilik",
+                "manajer",
+                "admin_gudang",
+                "kasir"
+            ]
+        },
+        {
+            "name": "status_transaksi",
+            "schema": "public",
+            "values": [
+                "pending",
+                "lunas",
+                "selesai",
+                "dibatalkan",
+                "diretur"
+            ]
+        },
+        {
+            "name": "saluran_transaksi",
+            "schema": "public",
+            "values": [
+                "online",
+                "offline"
+            ]
+        },
+        {
+            "name": "status_sinkron_transaksi",
+            "schema": "public",
+            "values": [
+                "tersinkron",
+                "menunggu_sinkron"
+            ]
+        },
+        {
+            "name": "metode_pembayaran",
+            "schema": "public",
+            "values": [
+                "tunai",
+                "transfer",
+                "e-wallet",
+                "kartu"
+            ]
+        },
+        {
+            "name": "status_pembayaran",
+            "schema": "public",
+            "values": [
+                "menunggu",
+                "berhasil",
+                "gagal"
+            ]
+        },
+        {
+            "name": "jenis_pergerakan_stok",
+            "schema": "public",
+            "values": [
+                "masuk",
+                "keluar",
+                "retur",
+                "penyesuaian"
+            ]
+        },
+        {
+            "name": "status_log_sinkron",
+            "schema": "public",
+            "values": [
+                "berhasil",
+                "gagal",
+                "sebagian"
+            ]
+        },
+        {
+            "name": "jenis_notifikasi",
+            "schema": "public",
+            "values": [
+                "stok_menipis",
+                "stok_habis"
+            ]
+        }
+    ],
+    "refs": [
+        {
+            "name": null,
+            "schema": "public",
+            "color": null,
+            "onDelete": null,
+            "onUpdate": null,
+            "endpoints": [
+                {
+                    "schema": "public",
+                    "table": "produk",
+                    "columns": [
+                        "id_kategori"
+                    ],
+                    "relation": "*"
+                },
+                {
+                    "schema": "public",
+                    "table": "kategori",
+                    "columns": [
+                        "id_kategori"
+                    ],
+                    "relation": "1"
+                }
+            ]
+        },
+        {
+            "name": null,
+            "schema": "public",
+            "color": null,
+            "onDelete": null,
+            "onUpdate": null,
+            "endpoints": [
+                {
+                    "schema": "public",
+                    "table": "log_sinkronisasi",
+                    "columns": [
+                        "id_perangkat"
+                    ],
+                    "relation": "*"
+                },
+                {
+                    "schema": "public",
+                    "table": "perangkat_pos",
+                    "columns": [
+                        "id_perangkat"
+                    ],
+                    "relation": "1"
+                }
+            ]
+        },
+        {
+            "name": null,
+            "schema": "public",
+            "color": null,
+            "onDelete": null,
+            "onUpdate": null,
+            "endpoints": [
+                {
+                    "schema": "public",
+                    "table": "transaksi",
+                    "columns": [
+                        "id_pelanggan"
+                    ],
+                    "relation": "*"
+                },
+                {
+                    "schema": "public",
+                    "table": "pelanggan",
+                    "columns": [
+                        "id_pelanggan"
+                    ],
+                    "relation": "1"
+                }
+            ]
+        },
+        {
+            "name": null,
+            "schema": "public",
+            "color": null,
+            "onDelete": null,
+            "onUpdate": null,
+            "endpoints": [
+                {
+                    "schema": "public",
+                    "table": "transaksi",
+                    "columns": [
+                        "id_pengguna"
+                    ],
+                    "relation": "*"
+                },
+                {
+                    "schema": "public",
+                    "table": "pengguna",
+                    "columns": [
+                        "id_pengguna"
+                    ],
+                    "relation": "1"
+                }
+            ]
+        },
+        {
+            "name": null,
+            "schema": "public",
+            "color": null,
+            "onDelete": null,
+            "onUpdate": null,
+            "endpoints": [
+                {
+                    "schema": "public",
+                    "table": "transaksi",
+                    "columns": [
+                        "id_perangkat"
+                    ],
+                    "relation": "*"
+                },
+                {
+                    "schema": "public",
+                    "table": "perangkat_pos",
+                    "columns": [
+                        "id_perangkat"
+                    ],
+                    "relation": "1"
+                }
+            ]
+        },
+        {
+            "name": null,
+            "schema": "public",
+            "color": null,
+            "onDelete": null,
+            "onUpdate": null,
+            "endpoints": [
+                {
+                    "schema": "public",
+                    "table": "transaksi",
+                    "columns": [
+                        "id_log_sinkronisasi"
+                    ],
+                    "relation": "*"
+                },
+                {
+                    "schema": "public",
+                    "table": "log_sinkronisasi",
+                    "columns": [
+                        "id_log"
+                    ],
+                    "relation": "1"
+                }
+            ]
+        },
+        {
+            "name": null,
+            "schema": "public",
+            "color": null,
+            "onDelete": "cascade",
+            "onUpdate": null,
+            "endpoints": [
+                {
+                    "schema": "public",
+                    "table": "detail_transaksi",
+                    "columns": [
+                        "id_transaksi"
+                    ],
+                    "relation": "*"
+                },
+                {
+                    "schema": "public",
+                    "table": "transaksi",
+                    "columns": [
+                        "id_transaksi"
+                    ],
+                    "relation": "1"
+                }
+            ]
+        },
+        {
+            "name": null,
+            "schema": "public",
+            "color": null,
+            "onDelete": null,
+            "onUpdate": null,
+            "endpoints": [
+                {
+                    "schema": "public",
+                    "table": "detail_transaksi",
+                    "columns": [
+                        "id_produk"
+                    ],
+                    "relation": "*"
+                },
+                {
+                    "schema": "public",
+                    "table": "produk",
+                    "columns": [
+                        "id_produk"
+                    ],
+                    "relation": "1"
+                }
+            ]
+        },
+        {
+            "name": null,
+            "schema": "public",
+            "color": null,
+            "onDelete": null,
+            "onUpdate": null,
+            "endpoints": [
+                {
+                    "schema": "public",
+                    "table": "pembayaran",
+                    "columns": [
+                        "id_transaksi"
+                    ],
+                    "relation": "*"
+                },
+                {
+                    "schema": "public",
+                    "table": "transaksi",
+                    "columns": [
+                        "id_transaksi"
+                    ],
+                    "relation": "1"
+                }
+            ]
+        },
+        {
+            "name": null,
+            "schema": "public",
+            "color": null,
+            "onDelete": null,
+            "onUpdate": null,
+            "endpoints": [
+                {
+                    "schema": "public",
+                    "table": "retur",
+                    "columns": [
+                        "id_transaksi"
+                    ],
+                    "relation": "*"
+                },
+                {
+                    "schema": "public",
+                    "table": "transaksi",
+                    "columns": [
+                        "id_transaksi"
+                    ],
+                    "relation": "1"
+                }
+            ]
+        },
+        {
+            "name": null,
+            "schema": "public",
+            "color": null,
+            "onDelete": null,
+            "onUpdate": null,
+            "endpoints": [
+                {
+                    "schema": "public",
+                    "table": "retur",
+                    "columns": [
+                        "id_produk"
+                    ],
+                    "relation": "*"
+                },
+                {
+                    "schema": "public",
+                    "table": "produk",
+                    "columns": [
+                        "id_produk"
+                    ],
+                    "relation": "1"
+                }
+            ]
+        },
+        {
+            "name": null,
+            "schema": "public",
+            "color": null,
+            "onDelete": null,
+            "onUpdate": null,
+            "endpoints": [
+                {
+                    "schema": "public",
+                    "table": "retur",
+                    "columns": [
+                        "id_pengguna"
+                    ],
+                    "relation": "*"
+                },
+                {
+                    "schema": "public",
+                    "table": "pengguna",
+                    "columns": [
+                        "id_pengguna"
+                    ],
+                    "relation": "1"
+                }
+            ]
+        },
+        {
+            "name": null,
+            "schema": "public",
+            "color": null,
+            "onDelete": null,
+            "onUpdate": null,
+            "endpoints": [
+                {
+                    "schema": "public",
+                    "table": "riwayat_stok",
+                    "columns": [
+                        "id_produk"
+                    ],
+                    "relation": "*"
+                },
+                {
+                    "schema": "public",
+                    "table": "produk",
+                    "columns": [
+                        "id_produk"
+                    ],
+                    "relation": "1"
+                }
+            ]
+        },
+        {
+            "name": null,
+            "schema": "public",
+            "color": null,
+            "onDelete": null,
+            "onUpdate": null,
+            "endpoints": [
+                {
+                    "schema": "public",
+                    "table": "riwayat_stok",
+                    "columns": [
+                        "id_transaksi"
+                    ],
+                    "relation": "*"
+                },
+                {
+                    "schema": "public",
+                    "table": "transaksi",
+                    "columns": [
+                        "id_transaksi"
+                    ],
+                    "relation": "1"
+                }
+            ]
+        },
+        {
+            "name": null,
+            "schema": "public",
+            "color": null,
+            "onDelete": null,
+            "onUpdate": null,
+            "endpoints": [
+                {
+                    "schema": "public",
+                    "table": "riwayat_stok",
+                    "columns": [
+                        "id_retur"
+                    ],
+                    "relation": "*"
+                },
+                {
+                    "schema": "public",
+                    "table": "retur",
+                    "columns": [
+                        "id_retur"
+                    ],
+                    "relation": "1"
+                }
+            ]
+        },
+        {
+            "name": null,
+            "schema": "public",
+            "color": null,
+            "onDelete": null,
+            "onUpdate": null,
+            "endpoints": [
+                {
+                    "schema": "public",
+                    "table": "riwayat_stok",
+                    "columns": [
+                        "id_pengguna"
+                    ],
+                    "relation": "*"
+                },
+                {
+                    "schema": "public",
+                    "table": "pengguna",
+                    "columns": [
+                        "id_pengguna"
+                    ],
+                    "relation": "1"
+                }
+            ]
+        },
+        {
+            "name": null,
+            "schema": "public",
+            "color": null,
+            "onDelete": null,
+            "onUpdate": null,
+            "endpoints": [
+                {
+                    "schema": "public",
+                    "table": "notifikasi_stok",
+                    "columns": [
+                        "id_produk"
+                    ],
+                    "relation": "*"
+                },
+                {
+                    "schema": "public",
+                    "table": "produk",
+                    "columns": [
+                        "id_produk"
+                    ],
+                    "relation": "1"
+                }
+            ]
+        },
+        {
+            "name": null,
+            "schema": "public",
+            "color": null,
+            "onDelete": null,
+            "onUpdate": null,
+            "endpoints": [
+                {
+                    "schema": "public",
+                    "table": "notifikasi_stok",
+                    "columns": [
+                        "id_penerima"
+                    ],
+                    "relation": "*"
+                },
+                {
+                    "schema": "public",
+                    "table": "pengguna",
+                    "columns": [
+                        "id_pengguna"
+                    ],
+                    "relation": "1"
+                }
+            ]
+        },
+        {
+            "name": null,
+            "schema": "public",
+            "color": null,
+            "onDelete": null,
+            "onUpdate": null,
+            "endpoints": [
+                {
+                    "schema": "public",
+                    "table": "biaya_operasional",
+                    "columns": [
+                        "id_pengguna"
+                    ],
+                    "relation": "*"
+                },
+                {
+                    "schema": "public",
+                    "table": "pengguna",
+                    "columns": [
+                        "id_pengguna"
+                    ],
+                    "relation": "1"
+                }
+            ]
+        }
+    ],
+    "version": 1,
+    "generated_at": "2026-10-13T08:16:43+00:00"
+}
