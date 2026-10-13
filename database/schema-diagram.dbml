@@ -1,0 +1,295 @@
+// ==========================================================
+// Technova E-Commerce - Skema Database (berdasarkan BRD v1.1)
+// ==========================================================
+
+// ---------- ENUM ----------
+Enum peran_pengguna {
+  pemilik
+  manajer
+  admin_gudang
+  kasir
+}
+
+Enum status_transaksi {
+  pending
+  lunas
+  selesai
+  dibatalkan
+  diretur
+}
+
+Enum saluran_transaksi {
+  online
+  offline
+}
+
+Enum status_sinkron_transaksi {
+  tersinkron
+  menunggu_sinkron
+}
+
+Enum metode_pembayaran {
+  tunai
+  transfer
+  "e-wallet"
+  kartu
+}
+
+Enum status_pembayaran {
+  menunggu
+  berhasil
+  gagal
+}
+
+Enum jenis_pergerakan_stok {
+  masuk
+  keluar
+  retur
+  penyesuaian
+}
+
+Enum status_log_sinkron {
+  berhasil
+  gagal
+  sebagian
+}
+
+Enum jenis_notifikasi {
+  stok_menipis
+  stok_habis
+}
+
+// ---------- MASTER DATA ----------
+Table pengguna {
+  id_pengguna     int          [pk, increment]
+  nama            varchar(100) [not null]
+  email           varchar(100) [not null, unique, note: 'Dipakai untuk login']
+  kata_sandi      varchar(255) [not null, note: 'Hash terenkripsi (bcrypt/argon2), bukan plaintext']
+  peran           peran_pengguna [not null, note: 'Menentukan hak akses (FR-12, BR-05)']
+  telepon         varchar(20)
+  status_aktif    boolean      [not null, default: true]
+  dibuat_pada     datetime     [not null, default: `now()`]
+  diperbarui_pada datetime
+
+  Note: 'Staf internal: pemilik, manajer, admin gudang, kasir/operator'
+}
+
+Table pelanggan {
+  id_pelanggan int          [pk, increment]
+  nama         varchar(100) [not null]
+  email        varchar(100) [unique]
+  telepon      varchar(20)
+  alamat       text         [note: 'Alamat pengiriman']
+  dibuat_pada  datetime     [not null, default: `now()`]
+}
+
+Table kategori {
+  id_kategori   int          [pk, increment]
+  nama_kategori varchar(100) [not null]
+  deskripsi     text
+}
+
+Table produk {
+  id_produk       int           [pk, increment]
+  id_kategori     int           [not null]
+  kode_sku        varchar(50)   [not null, unique]
+  nama_produk     varchar(150)  [not null]
+  deskripsi       text
+  harga_pokok     decimal(12,2) [not null, note: 'HPP TERBARU. Disalin ke detail_transaksi saat transaksi (BR-06)']
+  harga_jual      decimal(12,2) [not null, note: 'Harga berlaku saat ini. Disalin ke detail_transaksi (BR-07)']
+  satuan          varchar(20)   [not null, note: 'pcs, kg, box, dst.']
+  jumlah_stok     int           [not null, default: 0, note: 'Denormalisasi: harus = SUM(riwayat_stok.jumlah). Diperbarui otomatis (FR-08, FR-10)']
+  stok_minimum    int           [not null, default: 0, note: 'Batas pemicu low stock alert (FR-09, BR-04)']
+  status_aktif    boolean       [not null, default: true]
+  dibuat_pada     datetime      [not null, default: `now()`]
+  diperbarui_pada datetime
+
+  indexes {
+    id_kategori
+    nama_produk
+  }
+}
+
+// ---------- SINKRONISASI OFFLINE [BARU] ----------
+Table perangkat_pos {
+  id_perangkat    char(36)     [pk, note: 'UUID perangkat']
+  kode_perangkat  varchar(50)  [not null, unique]
+  nama_perangkat  varchar(100) [not null]
+  status_aktif    boolean      [not null, default: true]
+  terakhir_sinkron datetime
+  dibuat_pada     datetime     [not null, default: `now()`]
+
+  Note: 'Identitas perangkat/POS asal transaksi (FR-15, NFR-06)'
+}
+
+Table log_sinkronisasi {
+  id_log                int                 [pk, increment]
+  id_perangkat          char(36)            [not null]
+  waktu_mulai           datetime            [not null]
+  waktu_selesai         datetime
+  status                status_log_sinkron  [not null]
+  jumlah_data_dikirim   int                 [not null, default: 0]
+  jumlah_data_berhasil  int                 [not null, default: 0, note: 'Dipakai untuk melanjutkan batch yang gagal/sebagian']
+  jumlah_percobaan      int                 [not null, default: 1]
+  pesan_kesalahan       text
+
+  indexes {
+    (id_perangkat, waktu_mulai)
+    status
+  }
+
+  Note: 'Satu baris per pengiriman batch dari mode offline (FR-15, BR-03)'
+}
+
+// ---------- TRANSAKSI ----------
+Table transaksi {
+  id_transaksi          char(36)          [pk, note: 'UUID dibuat di perangkat agar unik global (FR-11, NFR-06)']
+  kode_transaksi        varchar(30)       [not null, unique]
+  id_pelanggan          int               [note: 'Nullable: pembeli walk-in']
+  id_pengguna           int               [note: 'Kasir/operator. Nullable untuk pembelian online mandiri']
+  id_perangkat          char(36)          [note: 'Perangkat POS asal (NULL jika dibuat langsung di server)']
+  id_log_sinkronisasi   int               [note: 'Batch sinkronisasi yang membawa transaksi ini (NULL jika online)']
+  tanggal_transaksi     datetime          [not null]
+  status                status_transaksi  [not null, default: 'pending']
+  saluran               saluran_transaksi [not null]
+  status_sinkronisasi   status_sinkron_transaksi [not null, default: 'tersinkron']
+  subtotal              decimal(14,2)     [not null, default: 0]
+  diskon                decimal(14,2)     [not null, default: 0]
+  pajak                 decimal(14,2)     [not null, default: 0]
+  total_bayar           decimal(14,2)     [not null, default: 0, note: 'subtotal - diskon + pajak']
+  waktu_sinkronisasi    datetime          [note: 'Untuk cek batas 24 jam (BR-03)']
+  dibuat_pada           datetime          [not null, default: `now()`]
+
+  indexes {
+    tanggal_transaksi
+    id_pelanggan
+    id_pengguna
+    (status_sinkronisasi, saluran)
+  }
+}
+
+Table detail_transaksi {
+  id_detail     int           [pk, increment]
+  id_transaksi  char(36)      [not null]
+  id_produk     int           [not null]
+  jumlah        int           [not null]
+  harga_satuan  decimal(12,2) [not null, note: 'Di-set server dari produk.harga_jual saat transaksi; tidak bisa diubah kasir (FR-01, BR-07, NFR-02)']
+  harga_pokok   decimal(12,2) [not null, note: 'HPP satuan terkunci saat transaksi (FR-04, BR-02, BR-06)']
+  subtotal      decimal(14,2) [not null, note: 'jumlah x harga_satuan; dasar best seller (FR-06)']
+
+  indexes {
+    (id_transaksi, id_produk) [unique]
+    id_produk
+  }
+}
+
+Table pembayaran {
+  id_pembayaran     int               [pk, increment]
+  id_transaksi      char(36)          [not null]
+  metode_pembayaran metode_pembayaran [not null]
+  jumlah_dibayar    decimal(14,2)     [not null]
+  status_pembayaran status_pembayaran [not null, default: 'menunggu']
+  dibayar_pada      datetime
+
+  indexes {
+    id_transaksi
+  }
+}
+
+Table retur {
+  id_retur      int      [pk, increment]
+  id_transaksi  char(36) [not null]
+  id_produk     int      [not null]
+  jumlah        int      [not null]
+  alasan        text
+  tanggal_retur datetime [not null]
+  id_pengguna   int      [not null, note: 'Pemroses retur']
+
+  indexes {
+    id_transaksi
+    id_produk
+  }
+}
+
+// ---------- STOK ----------
+Table riwayat_stok {
+  id_riwayat       int                   [pk, increment]
+  id_produk        int                   [not null]
+  jenis_pergerakan jenis_pergerakan_stok [not null]
+  jumlah           int                   [not null, note: 'Bertanda: positif = bertambah, negatif = berkurang']
+  id_transaksi     char(36)              [note: 'Terisi bila mutasi berasal dari penjualan']
+  id_retur         int                   [note: 'Terisi bila mutasi berasal dari retur']
+  catatan          text
+  id_pengguna      int                   [not null, note: 'Pencatat (mis. Admin Gudang)']
+  dicatat_pada     datetime              [not null, default: `now()`]
+
+  indexes {
+    (id_produk, dicatat_pada)
+    id_transaksi
+    id_retur
+  }
+
+  Note: 'APPEND-ONLY: tidak boleh di-UPDATE/DELETE (BR-01, FR-14). Koreksi dengan baris penyesuaian baru'
+}
+
+Table notifikasi_stok {
+  id_notifikasi int              [pk, increment]
+  id_produk     int              [not null]
+  id_penerima   int              [not null, note: 'Pengguna ber-peran admin_gudang']
+  jenis         jenis_notifikasi [not null]
+  pesan         varchar(255)     [not null]
+  sudah_dibaca  boolean          [not null, default: false]
+  dibuat_pada   datetime         [not null, default: `now()`]
+
+  indexes {
+    (id_penerima, sudah_dibaca)
+    id_produk
+  }
+
+  Note: 'Dibuat otomatis saat jumlah_stok <= stok_minimum (FR-09, BR-04)'
+}
+
+// ---------- KEUANGAN ----------
+Table biaya_operasional {
+  id_biaya       int           [pk, increment]
+  kategori_biaya varchar(100)  [not null, note: 'Sewa, gaji, listrik, dst.']
+  deskripsi      text
+  jumlah         decimal(14,2) [not null]
+  tanggal_biaya  date          [not null]
+  id_pengguna    int           [not null, note: 'Pencatat']
+
+  indexes {
+    tanggal_biaya
+  }
+}
+
+// ==========================================================
+// RELASI (many > one)
+// ==========================================================
+Ref: produk.id_kategori > kategori.id_kategori
+
+Ref: log_sinkronisasi.id_perangkat > perangkat_pos.id_perangkat
+
+Ref: transaksi.id_pelanggan > pelanggan.id_pelanggan
+Ref: transaksi.id_pengguna > pengguna.id_pengguna
+Ref: transaksi.id_perangkat > perangkat_pos.id_perangkat
+Ref: transaksi.id_log_sinkronisasi > log_sinkronisasi.id_log
+
+Ref: detail_transaksi.id_transaksi > transaksi.id_transaksi [delete: cascade]
+Ref: detail_transaksi.id_produk > produk.id_produk
+
+Ref: pembayaran.id_transaksi > transaksi.id_transaksi
+
+Ref: retur.id_transaksi > transaksi.id_transaksi
+Ref: retur.id_produk > produk.id_produk
+Ref: retur.id_pengguna > pengguna.id_pengguna
+
+Ref: riwayat_stok.id_produk > produk.id_produk
+Ref: riwayat_stok.id_transaksi > transaksi.id_transaksi
+Ref: riwayat_stok.id_retur > retur.id_retur
+Ref: riwayat_stok.id_pengguna > pengguna.id_pengguna
+
+Ref: notifikasi_stok.id_produk > produk.id_produk
+Ref: notifikasi_stok.id_penerima > pengguna.id_pengguna
+
+Ref: biaya_operasional.id_pengguna > pengguna.id_pengguna
