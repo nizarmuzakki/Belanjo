@@ -9,7 +9,7 @@ class Kategori extends Model
 {
     use HasFactory;
 
-    // @dbml-sync:table-property
+    // @dbml-sync:table-property apake
     protected $table = 'kategori';
     // @enddbml-sync:table-property
 
