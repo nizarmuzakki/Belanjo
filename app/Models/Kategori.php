@@ -10,7 +10,7 @@ class Kategori extends Model
     use HasFactory;
 
     protected $primaryKey = 'id_kategori';
-public $timestamps = false;
+    public $timestamps = false;
 
     // @dbml-sync:table-property
     protected $table = 'kategori';
@@ -19,13 +19,13 @@ public $timestamps = false;
     // @dbml-sync:fillable
     protected $fillable = [
         'nama_kategori',
-		'deskripsi'
+        'deskripsi'
     ];
     // @enddbml-sync:fillable
 
     // @dbml-sync:casts
     protected $casts = [
-        
+
     ];
     // @enddbml-sync:casts
 
