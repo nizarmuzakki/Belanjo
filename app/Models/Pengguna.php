@@ -9,6 +9,11 @@ class Pengguna extends Model
 {
     use HasFactory;
 
+    protected $primaryKey = 'id_pengguna';
+
+    const CREATED_AT = 'dibuat_pada';
+    const UPDATED_AT = 'diperbarui_pada';
+
     // @dbml-sync:table-property
     protected $table = 'pengguna';
     // @enddbml-sync:table-property

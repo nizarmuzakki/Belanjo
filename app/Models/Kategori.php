@@ -9,6 +9,9 @@ class Kategori extends Model
 {
     use HasFactory;
 
+    protected $primaryKey = 'id_kategori';
+public $timestamps = false;
+
     // @dbml-sync:table-property
     protected $table = 'kategori';
     // @enddbml-sync:table-property
