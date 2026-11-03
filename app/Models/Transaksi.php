@@ -11,33 +11,41 @@ class Transaksi extends Model
 
     // @dbml-sync:table-property
     protected $table = 'transaksi';
+
     // @enddbml-sync:table-property
+    protected $primaryKey = 'id_transaksi';
+
+    public $incrementing = false;
+
+    protected $keyType = 'string';
+
+    public $timestamps = false;
 
     // @dbml-sync:fillable
     protected $fillable = [
         'kode_transaksi',
-		'id_pelanggan',
-		'id_pengguna',
-		'id_perangkat',
-		'id_log_sinkronisasi',
-		'tanggal_transaksi',
-		'status',
-		'saluran',
-		'status_sinkronisasi',
-		'subtotal',
-		'diskon',
-		'pajak',
-		'total_bayar',
-		'waktu_sinkronisasi',
-		'dibuat_pada'
+        'id_pelanggan',
+        'id_pengguna',
+        'id_perangkat',
+        'id_log_sinkronisasi',
+        'tanggal_transaksi',
+        'status',
+        'saluran',
+        'status_sinkronisasi',
+        'subtotal',
+        'diskon',
+        'pajak',
+        'total_bayar',
+        'waktu_sinkronisasi',
+        'dibuat_pada',
     ];
     // @enddbml-sync:fillable
 
     // @dbml-sync:casts
     protected $casts = [
         'tanggal_transaksi' => 'datetime',
-		'waktu_sinkronisasi' => 'datetime',
-		'dibuat_pada' => 'datetime'
+        'waktu_sinkronisasi' => 'datetime',
+        'dibuat_pada' => 'datetime',
     ];
     // @enddbml-sync:casts
 
