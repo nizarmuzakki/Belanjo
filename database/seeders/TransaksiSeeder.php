@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 
 class TransaksiSeeder extends Seeder
 {
-    private const JUMLAH = 100_000;
+    private const JUMLAH = 50_000;
 
     private const UKURAN_BATCH = 1_000;
 
